@@ -6,7 +6,7 @@ let result = document.getElementById("result");
 
 let getMovie = () => {
     let movieName = movieNameRef.value;
-    let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
+    let url = `http://www.omdbapi.com/?t=${movieName}&tomatoes=true&apikey=${key}`;
     //if input field is empty
 
     if (movieName.length <= 0) {
@@ -26,6 +26,7 @@ let getMovie = () => {
                             <div class="rating">
                                 <img src="star-icon.svg">
                                 <h4>${data.imdbRating}</h4>
+                                <h4>${data.tomatoRating}</h4>
                             </div>
                             <div class="details">
                                 <span>${data.Rated}</span>
@@ -56,5 +57,20 @@ let getMovie = () => {
     }
 };
 
+// Get the input field
+var input = document.getElementById("movie-name");
+
+// Execute a function when the user presses a key on the keyboard
+input.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("search-btn").click();
+  }
+});
+
+movieNameRef.addEventListener("Enter", getMovie);
 searchBtn.addEventListener("click", getMovie);
 window.addEventListener("load", getMovie);
